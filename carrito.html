@@ -1,0 +1,35 @@
+<html>
+
+<head>
+    <meta ccharset="UTF-8">
+    <title>Carrito</title>
+    <script type="text/javascript" src="js/funciones.js"></script>
+    <link rel="stylesheet" href="CSS/estiloCarrito.css">
+    <link rel="stylesheet" href="CSS/FontAwesome/fontawesome-all.css">
+    <link rel="stylesheet" href="CSS/Fonts/stylesheet.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src *; font-src *; connect-src *">
+</head>
+
+<body onload="cargarCarrito();">
+    <script>
+    window.location.hash = "no-back-button";
+    window.location.hash = "Again-No-back-button"; //again because google chrome don't insert first hash into history
+    window.onhashchange = function() { window.location.hash = "no-back-button"; }
+    </script>
+    <div class='header'>
+        <div class='titulo'>
+            <i class='fas fa-arrow-left fa-2x' onclick="location.href = 'menu.html'"></i>
+            <h2>Resumen del pedido</h2>
+        </div>
+    </div>
+    <section class="contenedor">
+    </section>
+    <article>
+    </article>
+</body>
+<script>
+</script>
+
+</html>
