@@ -571,9 +571,7 @@ function exito(){
 }
 
 function factura(){
-	var doc = new jsPDF();
- 	doc.text(20, 20, 'Hello world!');
- 	doc.save('is_this_what_you_are_looking_for.pdf');
+	window.location.href = "https://mesonmexico.000webhostapp.com/factura.jpg";
 }
 function download(fileURL, fileName) {
     // for non-IE
