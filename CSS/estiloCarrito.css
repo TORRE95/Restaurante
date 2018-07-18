@@ -62,7 +62,7 @@ a:link, a:visited, a:hover, a:active {
 .nombre{ 
     position: relative; 
     float: left; 
-    width: 60%; 
+    width: 55%; 
     margin: 10px; 
     height: 100%; 
 } 
@@ -75,7 +75,7 @@ a:link, a:visited, a:hover, a:active {
     margin: 10px; 
     position: relative; 
     float: left; 
-    width: 25%; 
+    width: 20%; 
     height: 100%; 
 } 
 .cantidad > input{ 
@@ -87,6 +87,15 @@ a:link, a:visited, a:hover, a:active {
     text-align: center; 
  
 } 
+.borrar{
+    margin: 10px; 
+    position: relative; 
+    float: left; 
+    width: 8%; 
+    height: 100%; 
+    text-align: right;
+    color: #cc0000;
+}
 .resumen { 
  
     width: 95%; 

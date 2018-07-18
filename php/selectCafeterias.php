@@ -7,16 +7,13 @@
 	
 
 
-	$query = "SELECT * FROM usuarios WHERE tipoUsuario = 1;";
+	$query = "SELECT * FROM categorias";
 	$resultado = $conexion->query($query);
 	$arreglo = array();
 	while ($r = $resultado->fetch_object()) {
 		array_push($arreglo, array(
-			"Nombre"=>$r->Nombre,
-			"idUsuario"=>$r->idUsuario,
-			"Descripcion"=>$r->DescripcionCafe,
-			"Rate"=>$r->Rate
-
+			"Nombre"=>$r->nombre,
+			"idUsuario"=>$r->idUsuario
 		));
 	}
 	

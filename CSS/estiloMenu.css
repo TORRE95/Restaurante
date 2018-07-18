@@ -148,4 +148,54 @@ body{
     color: white;
 }
 
+#modal1{
+    visibility: visible;
+    position: fixed;
+    width: 80%;
+    height: 40%;
+    top: 30%;
+    left: 10%;
+    z-index: 10;
+}
+.ingr{
+    position: relative;
+    height: 80%;
+    background-color: white;
+    padding: 5px;
+    border-radius: 10px 10px 0px 0px;
+}
+.ingr > input{
+    margin: 5px;
+}
+.aceptar > button{
+    position: relative;
+    background-color: var(--header); /* Green */
+    border: none;
+    color: white;
+    height: 20%;
+    width: 50%;
+    color: white;
+    font-weight: bolder;
+}
+#cancelar{
+    background-color: #cc0000;    
+    border-radius: 0px 0px 10px 0px;
+}
+#aceptar{
+    border-radius: 0px 0px 0px 10px;
+}
+#aceptar2{
+    border-radius: 0px 0px 10px 0px;
+}
+#modal2{
+    visibility: visible;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.8);
+    z-index: 8;
+    overflow: hidden;
+}
+
 

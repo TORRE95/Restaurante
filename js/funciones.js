@@ -87,7 +87,7 @@ function pedidos() {
 		ordenAjax.onreadystatechange = function(){
 			if (ordenAjax.readyState == 4 && ordenAjax.status == 200) {
 				orden = JSON.parse(ordenAjax.responseText);
-				for (var i = 0; i < orden.length; i++) {
+				for (var i = orden.length -1; i >= 0; i--) {
 					var info = 
 						"<div class='modulosP'>"+
 							"<div class='orden'>"+
@@ -284,37 +284,6 @@ function updatePerfil() {
 	}
 }
 
-function pedidos() {
-	var id = localStorage.getItem('idUsuario');
-	if (id != "") {
-		ordenAjax = new XMLHttpRequest();
-		ordenAjax.open("GET", url+"orden.php?usuario="+id);
-		ordenAjax.send();
-		ordenAjax.onreadystatechange = function(){
-			if (ordenAjax.readyState == 4 && ordenAjax.status == 200) {
-				orden = JSON.parse(ordenAjax.responseText);
-				for (var i = 0; i < orden.length; i++) {
-					var info = 
-						"<div class='modulosP'>"+
-							"<div class='orden'>"+
-								"<div class='numero'><label>#58"+orden[i].idOrden+"</label></div>"+
-								"<div class='hora'><label>"+orden[i].hora+"</label></div>"+
-							"</div>"+
-							"<div class='articulos'>"+
-								"<ul>"+
-									"<li>"+orden[i].descripcion+"</li>"+
-								"</ul>"+
-							"</div>"+
-							"<div class='total'><label>$"+orden[i].monto+"</label></div>"+
-						"</div>";
-						document.querySelector('section').innerHTML += info;
-				}	
-			}
-		}
-	}
-}
-
-
 
 function cargarCafeterias(){
 
@@ -354,7 +323,6 @@ function menu(idCafe){
 
 
 }
-
 function cargarMenu(){
 	var idCafe = localStorage.getItem('idCafeteria');
 	menuAjax = new XMLHttpRequest();
@@ -377,7 +345,7 @@ function cargarMenu(){
 						"</div>"+
 						"<div class='precio'>"+
 							"<div class='dinero'><h3>$"+menu[i].Precio+"</h3></div>"+
-							"<div class='agregar'><button onclick='add("+menu[i].idProducto+","+menu[i].Precio+","+'"'+menu[i].Nombre+'"'+");'"+">Agregar</button></div>"+
+							"<div class='agregar'><button onclick='choose("+'"'+menu[i].Descripcion+'"'+","+'"'+menu[i].Nombre+'"'+","+menu[i].Precio+","+menu[i].idProducto+");'"+">Agregar</button></div>"+
 						"</div>"+
 					"</div>";
 				document.querySelector('section').innerHTML += info;
@@ -387,7 +355,68 @@ function cargarMenu(){
 		}
 	}
 }
+function choose(Descripcion, Nombre, Precio, idProducto){
+	var info = '<div id="modal2">'+
+            '<div id="modal1">'+
+                '<div class="ingr">'+
+                    '<h3 style="margin: 5px;">¿Desea planificar su compra?</h3>';
 
+        info += '</div>'+
+                '<div class="aceptar">'+
+                    '<button id="aceptar" onclick="sem('+"'"+Descripcion+"'"+','+"'"+Nombre+"'"+','+Precio+','+idProducto+');"'+'>Planificar</button>'+
+                    '<button id="aceptar2" onclick="ingr('+"'"+Descripcion+"'"+','+"'"+Nombre+"'"+','+Precio+','+idProducto+');">Comprar para hoy</button>'+
+                '</div>'+
+            '</div>'+
+        '</div>'
+        document.getElementById('modal').innerHTML = info;
+}
+function sem(Descripcion, Nombre, Precio, idProducto){
+			var info = '<div id="modal2">'+
+            '<div id="modal1">'+
+                '<div class="ingr">'+
+                    '<h3 style="margin: 5px;">Seleccióna los días deseados</h3>';
+    	info +=  '<input id="lunes" type="checkbox"><label for="lunes">Lunes</label><br>';
+    	info +=  '<input id="martes" type="checkbox"><label for="martes">Martes</label><br>';
+    	info +=  '<input id="miercoles" type="checkbox"><label for="miercoles">Miercoles</label><br>';
+    	info +=  '<input id="jueves" type="checkbox"><label for="jueves">Jueves</label><br>';
+    	info +=  '<input id="viernes" type="checkbox"><label for="viernes">Viernes</label><br>';
+    	info +=  '<input id="sabado" type="checkbox"><label for="sabado">Sabado</label><br>';
+    	info +=  '<input id="domingo" type="checkbox"><label for="domingo">Domingo</label><br>';
+
+        info += '</div>'+
+                '<div class="aceptar">'+
+                    '<button id="aceptar" onclick="ingr('+"'"+Descripcion+"'"+','+"'"+Nombre+"'"+','+Precio+','+idProducto+');"'+'>Aceptar</button>'+
+                    '<button id="cancelar" onclick="cancel();">Cancelar</button>'+
+                '</div>'+
+            '</div>'+
+        '</div>'
+        document.getElementById('modal').innerHTML = info;
+}
+
+function cancel(){
+	document.getElementById('modal1').style.visibility = "hidden";
+				 document.getElementById('modal2').style.visibility = "hidden";
+				 document.getElementById('modal').style.visibility = "hidden";
+}
+function ingr(ingredientes, nombre, precio, id){
+	var ing = ingredientes.split(",");
+
+	var info = '<div id="modal2">'+
+            '<div id="modal1">'+
+                '<div class="ingr">'+
+                    '<h3 style="margin: 5px;">Ingredientes</h3>';
+    for (var i = 0; i < ing.length; i++) {
+    	info +=  '<input id="'+i+'" type="checkbox"><label for="'+i+'">'+ing[i]+'</label><br>'
+    }
+        info += '</div>'+
+                '<div class="aceptar">'+
+                    '<button id="aceptar" onclick="add('+id+','+precio+','+"'"+nombre+"'"+');"'+'>Agregar</button>'+
+                    '<button id="cancelar" onclick="cancel();">Cancelar</button>'+
+                '</div>'+
+            '</div>'+
+        '</div>'
+        document.getElementById('modal').innerHTML = info;
+}
 function add(idProducto, precio, nombre){
 	var idUsuario = localStorage.getItem("idUsuario");
 	console.log(url)
@@ -398,14 +427,21 @@ function add(idProducto, precio, nombre){
 		if (precioAjax.readyState == 4 && precioAjax.status == 200) {
 			if (precioAjax.responseText=="1") {
 				alert("Producto agregado al carrito");
+				 document.getElementById('modal1').style.visibility = "hidden";
+				 document.getElementById('modal2').style.visibility = "hidden";
+				 document.getElementById('modal').style.visibility = "hidden";
 			}else{
 				alert("Error inesperado, intente más tarde");
+				document.getElementById('modal1').style.visibility = "hidden";
+				 document.getElementById('modal2').style.visibility = "hidden";
+				 document.getElementById('modal').style.visibility = "hidden";
 			}
 		}
 	}
 }
 
 function cargarCarrito(){
+	
 	var idUsuario = localStorage.getItem("idUsuario");
 	var suma = 0;
 	var descripcion = "";
@@ -415,9 +451,12 @@ function cargarCarrito(){
 	carritoAjax.onreadystatechange = function(){
 		if (carritoAjax.readyState == 4 && carritoAjax.status == 200) {
 			carrito = JSON.parse(carritoAjax.responseText);
-			for (var i = 0; i < carrito.length; i++) {
-				descripcion +=carrito[i].nombre + ","
-				suma += parseInt(carrito[i].precio);
+			if (carrito.length != 0){
+				document.querySelector('section').innerHTML = "";
+				document.querySelector('article').innerHTML = "";
+				for (var i = 0; i < carrito.length; i++) {
+				descripcion +=carrito[i].nombre + ",";
+				suma += parseFloat(carrito[i].precio);
 					var info = 
 					"<div class='carrito'>"+
 						"<div class='producto'>"+
@@ -430,10 +469,11 @@ function cargarCarrito(){
 								"</div>"+
 								"<input type='hidden' value='"+carrito[i].idCarrito+"/"+i+"'>"+
 							"</div>"+
+							"<div class='borrar' onclick=borrar("+carrito[i].idCarrito+")><i class='fas fa-times-circle'></i></div>"+
 						"</div>"+
 					"</div>";
 				document.querySelector('section').innerHTML += info;
-				document.querySelector('article').innerHTML = "<div class='total'> TOTAL<br>$"+suma+".00</div>";
+				document.querySelector('article').innerHTML = "<div class='total'> TOTAL<br>$"+suma.toFixed(2)+"</div>";
 				document.querySelector('article').innerHTML += "<a href='pago.html'>"+
         															"<div class='pago'>"+
             															"PAGAR"+
@@ -442,11 +482,28 @@ function cargarCarrito(){
 				localStorage.setItem("suma", suma);
 				localStorage.setItem("descripcion", descripcion);
 			}
+			}
+			else{
+				document.querySelector('section').innerHTML = '<h2 style="width: 100%; text-align: center; margin-top: 80px">Tu carrito está vacío</h2>';
+				document.querySelector('article').innerHTML = "";
+			}
+			
 			
 			
 		}
 	}
 
+}
+
+function borrar(idCarrito){
+	carritoAjax = new XMLHttpRequest();
+	carritoAjax.open('GET', url+"borrarCarrito.php?id="+idCarrito);
+	carritoAjax.send();
+	carritoAjax.onreadystatechange = function(){
+		if (carritoAjax.readyState == 4 && carritoAjax.status == 200) {
+			cargarCarrito();
+		}
+	}
 }
 
 function insertarOrden(){
@@ -513,3 +570,34 @@ function exito(){
 	}
 }
 
+function factura(){
+	var doc = new jsPDF();
+ 	doc.text(20, 20, 'Hello world!');
+ 	doc.save('is_this_what_you_are_looking_for.pdf');
+}
+function download(fileURL, fileName) {
+    // for non-IE
+    if (!window.ActiveXObject) {
+        var save = document.createElement('a');
+        save.href = fileURL;
+        save.target = '_blank';
+        save.download = fileName || 'unknown';
+
+        var evt = new MouseEvent('click', {
+            'view': window,
+            'bubbles': true,
+            'cancelable': false
+        });
+        save.dispatchEvent(evt);
+
+        (window.URL || window.webkitURL).revokeObjectURL(save.href);
+    }
+
+    // for IE < 11
+    else if ( !! window.ActiveXObject && document.execCommand)     {
+        var _window = window.open(fileURL, '_blank');
+        _window.document.close();
+        _window.document.execCommand('SaveAs', true, fileName || fileURL)
+        _window.close();
+    }
+}

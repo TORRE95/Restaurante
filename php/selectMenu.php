@@ -17,8 +17,8 @@
 			"Nombre"=>$r->Nombre,
 			"idProducto"=>$r->idProducto,
 			"Descripcion"=>$r->Descripcion,
-			"Precio"=>$r->Precio
-
+			"Precio"=>$r->Precio,
+			"Cat"=>$r->idUsuario
 		));
 	}
 	
