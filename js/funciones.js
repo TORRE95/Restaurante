@@ -13,18 +13,19 @@ function registrar() {
 			registroAjax = new XMLHttpRequest();
 			registroAjax.open('GET', url+"registrarUsuarios.php?nombre="+nombre+"&mail="+mail+"&pass="+pass1);
 			registroAjax.send();
-			alert("¡Registrado exitosamente!");
+			
 
 			registroAjax.onreadystatechange = function(){
 				if (registroAjax.readyState == 4 && registroAjax.status == 200) {
 					
 					if (registroAjax.responseText=="1") {
 						//lo que hace cuando sale bien el registro
+						alert("¡Registrado exitosamente!");
 						window.location.href='index.html';
 					}
 					else{
 
-						alert("Error inesperado, intente más tarde")
+						alert("Correo Electrónico ya registrado")
 					}
 				}
 			}
@@ -120,39 +121,6 @@ function menu(idCafe){
 
 }
 
-
-function registrar() {
-	
-	
-	var nombre = document.getElementById("nombre").value;
-	var mail = document.getElementById("mail").value;
-	var pass1 = document.getElementById("pass1").value;
-	var pass2 = document.getElementById("pass2").value;
-
-	if (nombre != "" && mail != "" && pass1 != "" && pass2 != "" && pass1 == pass2) {
-	
-	
-			registroAjax = new XMLHttpRequest();
-			registroAjax.open('GET', url+"registrarUsuarios.php?nombre="+nombre+"&mail="+mail+"&pass="+pass1);
-			registroAjax.send();
-			alert("¡Registrado exitosamente!");
-
-			registroAjax.onreadystatechange = function(){
-				if (registroAjax.readyState == 4 && registroAjax.status == 200) {
-					
-					if (registroAjax.responseText=="1") {
-						//lo que hace cuando sale bien el registro
-						window.location.href='index.html';
-					}
-					else{
-
-						alert("Error inesperado, intente más tarde")
-					}
-				}
-			}
-		
-	}
-}
 
 function inicioSesion() {
 
@@ -298,7 +266,7 @@ function cargarCafeterias(){
 						"<a onclick='menu("+cafeteria[i].idUsuario+")'>"+
 							"<div class='cafe'>"+
 								"<div class='fotoCafe'>"+
-									"<i class='fas fa-coffee fa-3x'></i>"+
+									"<img src='"+cafeteria[i].foto+"'>"+
 								"</div>"+
 								"<div class='desc' style= 'display:table; vertical-align: middle;'>"+
 									"<h3 style = 'height: inherit; display: table-cell; vertical-align: middle;'>"+cafeteria[i].Nombre+"</h3>"+"<br>"+
