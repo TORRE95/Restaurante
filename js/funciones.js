@@ -356,6 +356,7 @@ function cargarMenu(){
 	}
 }
 function choose(Descripcion, Nombre, Precio, idProducto){
+
 	var info = '<div id="modal2">'+
             '<div id="modal1">'+
                 '<div class="ingr">'+
@@ -364,7 +365,7 @@ function choose(Descripcion, Nombre, Precio, idProducto){
         info += '</div>'+
                 '<div class="aceptar">'+
                     '<button id="aceptar" onclick="sem('+"'"+Descripcion+"'"+','+"'"+Nombre+"'"+','+Precio+','+idProducto+');"'+'>Planificar</button>'+
-                    '<button id="aceptar2" onclick="ingr('+"'"+Descripcion+"'"+','+"'"+Nombre+"'"+','+Precio+','+idProducto+');">Comprar para hoy</button>'+
+                    '<button id="aceptar2" onclick="ingr2('+"'"+Descripcion+"'"+','+"'"+Nombre+"'"+','+Precio+','+idProducto+');">Comprar para hoy</button>'+
                 '</div>'+
             '</div>'+
         '</div>'
@@ -385,7 +386,7 @@ function sem(Descripcion, Nombre, Precio, idProducto){
 
         info += '</div>'+
                 '<div class="aceptar">'+
-                    '<button id="aceptar" onclick="ingr('+"'"+Descripcion+"'"+','+"'"+Nombre+"'"+','+Precio+','+idProducto+');"'+'>Aceptar</button>'+
+                    '<button id="aceptar" onclick="ingr2('+"'"+Descripcion+"'"+','+"'"+Nombre+"'"+','+Precio+','+idProducto+');"'+'>Aceptar</button>'+
                     '<button id="cancelar" onclick="cancel();">Cancelar</button>'+
                 '</div>'+
             '</div>'+
@@ -398,8 +399,31 @@ function cancel(){
 				 document.getElementById('modal2').style.visibility = "hidden";
 				 document.getElementById('modal').style.visibility = "hidden";
 }
-function ingr(ingredientes, nombre, precio, id){
+function ingr2(ingredientes, nombre, precio, id){
 	var ing = ingredientes.split(",");
+
+	var info = '<div id="modal2">'+
+            '<div id="modal1">'+
+                '<div class="ingr">'+
+                    '<h3 style="margin: 5px; text-align: center;">Elige los detalles de tu orden</h3><br><br>'+
+                    '<label for="hora">Hora deseada</label><br><input id="hora" type="time" /><br><br>'+
+                    '<input id="domi" name="tipo" type="radio" /><label for="domi">Entrega a Domicilio</label><br>'+
+                    '<input id="tie" name="tipo" type="radio" /><label for="tie">Recoge en Tienda</label>';
+        info += '</div>'+
+                '<div class="aceptar">'+
+                    '<button id="aceptar" onclick="ingr('+"'"+ingredientes+"'"+','+"'"+nombre+"'"+','+precio+','+id+');"'+'>Agregar</button>'+
+                    '<button id="cancelar" onclick="choose('+"'"+ingredientes+"','"+nombre+"',"+precio+','+id+');">Atras</button>'+
+                '</div>'+
+            '</div>'+
+        '</div>'
+        document.getElementById('modal').innerHTML = info;
+}
+function ingr(ingredientes1, nombre, precio, id){
+	var tipo = document.getElementById('domi');
+	localStorage.setItem('hora2',document.getElementById('hora').value);
+	var ing = ingredientes1.split(",");
+
+	if (tipo.checked) {
 
 	var info = '<div id="modal2">'+
             '<div id="modal1">'+
@@ -416,6 +440,33 @@ function ingr(ingredientes, nombre, precio, id){
             '</div>'+
         '</div>'
         document.getElementById('modal').innerHTML = info;
+	}
+	else{
+		tipo = document.getElementById('tie');
+		if (tipo.checked) {
+			
+
+	var info = '<div id="modal2">'+
+            '<div id="modal1">'+
+                '<div class="ingr">'+
+                    '<h3 style="margin: 5px;">Ingredientes</h3>';
+    for (var i = 0; i < ing.length; i++) {
+    	info +=  '<input id="'+i+'" type="checkbox"><label for="'+i+'">'+ing[i]+'</label><br>'
+    }
+        info += '</div>'+
+                '<div class="aceptar">'+
+                    '<button id="aceptar" onclick="add('+id+','+precio+','+"'"+nombre+"'"+');"'+'>Agregar</button>'+
+                    '<button id="cancelar" onclick="cancel();">Cancelar</button>'+
+                '</div>'+
+            '</div>'+
+        '</div>'
+        document.getElementById('modal').innerHTML = info;
+		}
+		else{
+			alert("Seleccionar tipo de envío");
+		}
+	}
+	
 }
 function add(idProducto, precio, nombre){
 	var idUsuario = localStorage.getItem("idUsuario");
@@ -562,7 +613,7 @@ function exito(){
 				orden = JSON.parse(ordenAjax.responseText);
 				for (var i = 0; i < orden.length; i++) {
 					var info = 	"<label><b>#58"+orden[i].idOrden+"</b></label><br><br><br>"+
-								"<label style='text-align: center;'><b>Tu pedido estará listo a las: "+hora+"</b></label><br><br><br>";
+								"<label style='text-align: center;'><b>Tu pedido estará listo a las: "+localStorage.getItem('hora2')+"</b></label><br><br><br>";
 						document.querySelector('section').innerHTML = info;
 				}	
 			}

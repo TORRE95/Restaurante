@@ -159,9 +159,9 @@ body{
 }
 .ingr{
     position: relative;
-    height: 80%;
+    height: calc(80% - 15px);
     background-color: white;
-    padding: 5px;
+    padding: 15px;
     border-radius: 10px 10px 0px 0px;
 }
 .ingr > input{
