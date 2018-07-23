@@ -14,7 +14,18 @@ a:link, a:visited, a:hover, a:active {
     text-decoration: none;
     color: white;
 }
-
+.borrar{
+    position: relative; 
+    float: left; 
+    width: 8%; 
+    height: 100%;
+    text-align: right;
+    color: #cc0000;
+}
+.borrar>i{
+	position: absolute;
+	top:45%;
+}
 .header{
 
 	width: 100%;
@@ -138,7 +149,7 @@ span {
 }
 .articulos{
 	position: relative;
-	width: 60%;
+	width: 48%;
 	height: 100%;
 	float: left;
 	line-height: 100%;
@@ -154,7 +165,7 @@ span {
 .total{
 	position: relative;
 	float: left;
-	width: 20%;
+	width: 18%;
 	height: 100%;
 	line-height: 100%;
 }

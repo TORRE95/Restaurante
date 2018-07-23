@@ -1,0 +1,41 @@
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Confirma Dirección</title>
+		<link rel="stylesheet" href="CSS/estiloPago.css">
+		<link rel="stylesheet" href="CSS/FontAwesome/fontawesome-all.css">
+		<link rel="stylesheet" href="CSS/Fonts/stylesheet.css">
+		<script type="text/javascript" src="js/funciones.js"></script>
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+		<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src *; font-src *; connect-src *; frame-src *">
+	</head>
+	<body>
+		<script>
+		window.location.hash = "no-back-button";
+		window.location.hash = "Again-No-back-button"; //again because google chrome don't insert first hash into history
+		window.onhashchange = function() { window.location.hash = "no-back-button"; }
+		</script>
+		<div class="contenedor">
+			<div class="header">
+				<div class="titulo">
+					<i class="fas fa-arrow-left fa-2x" onclick="goBack()"></i>
+					<h2>Confirma Dirección</h1>
+				</div>
+			</div>
+			<div class="pago">
+				<!-- Embedded Google Map -->
+				<iframe width="100%" height="400px" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?q=Cortazar&t=&z=15&ie=UTF8&iwloc=&output=embed"></iframe>
+				<form style="margin-top: 30px;">
+					<input type="button" name="agregar" value="Pagar" onclick="insertarOrden();" style="color: white;
+					font-weight: bolder; font-size: 16;">
+				</form>
+			</div>
+		</div>
+		<script>
+			function goBack() {
+			window.history.back();
+			}
+		</script>
+	</body>
+	
+</html>

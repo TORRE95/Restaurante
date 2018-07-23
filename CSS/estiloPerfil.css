@@ -90,7 +90,7 @@ label {
 /* Style the submit button */
 input[type=submit] {
   background-color: var(--header);
-  color: #B39700;
+  color: white;
   font-size: 16;
   font-weight: bold;
   padding: 12px 20px;
@@ -101,7 +101,7 @@ input[type=submit] {
 }
 button{
   background-color: var(--header);
-  color: #B39700;
+  color: white;
   font-weight: bold;
   font-size: 16;
   padding: 12px 20px;

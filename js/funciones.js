@@ -87,20 +87,20 @@ function pedidos() {
 		ordenAjax.send();
 		ordenAjax.onreadystatechange = function(){
 			if (ordenAjax.readyState == 4 && ordenAjax.status == 200) {
-				orden = JSON.parse(ordenAjax.responseText);
+				var orden1 = JSON.parse(ordenAjax.responseText);
 				for (var i = orden.length -1; i >= 0; i--) {
 					var info = 
 						"<div class='modulosP'>"+
 							"<div class='orden'>"+
-								"<div class='numero'><label>#58"+orden[i].idOrden+"</label></div>"+
-								"<div class='hora'><label>"+orden[i].hora+"</label></div>"+
+								"<div class='numero'><label>#58"+orden1[i].idOrden+"</label></div>"+
+								"<div class='hora'><label>"+orden1[i].hora+"</label></div>"+
 							"</div>"+
 							"<div class='articulos'>"+
 								"<ul>"+
-									"<li>"+orden[i].descripcion+"</li>"+
+									"<li>"+orden1[i].descripcion+"</li>"+
 								"</ul>"+
 							"</div>"+
-							"<div class='total'><label>$"+orden[i].monto+"</label></div>"+
+							"<div class='total'><label>$"+orden1[i].monto+"</label></div>"+
 						"</div>";
 						document.querySelector('section').innerHTML += info;
 				}	
@@ -162,7 +162,8 @@ function orden() {
 		ordenAjax.send();
 		ordenAjax.onreadystatechange = function(){
 			if (ordenAjax.readyState == 4 && ordenAjax.status == 200) {
-				orden = JSON.parse(ordenAjax.responseText);
+				var orden = JSON.parse(ordenAjax.responseText);
+				document.querySelector('article').innerHTML = "";
 				for (var i = 0; i < orden.length; i++) {
 					var info = 
 						"<div class='modulos'>"+
@@ -176,10 +177,22 @@ function orden() {
 								"</ul>"+
 							"</div>"+
 							"<div class='total'><label>$"+orden[i].monto+"</label></div>"+
+							"<div class='borrar' onclick=borrarOrden("+orden[i].idOrden+")><i class='fas fa-times-circle'></i></div>"+
 						"</div>";
 						document.querySelector('article').innerHTML += info;
 				}	
 			}
+		}
+	}
+}
+
+function borrarOrden(id){
+	carritoAjax = new XMLHttpRequest();
+	carritoAjax.open('GET', url+"borrarOrden.php?id="+id);
+	carritoAjax.send();
+	carritoAjax.onreadystatechange = function(){
+		if (carritoAjax.readyState == 4 && carritoAjax.status == 200) {
+			orden();
 		}
 	}
 }
@@ -578,7 +591,7 @@ function exito(){
 		ordenAjax.send();
 		ordenAjax.onreadystatechange = function(){
 			if (ordenAjax.readyState == 4 && ordenAjax.status == 200) {
-				orden = JSON.parse(ordenAjax.responseText);
+				var orden = JSON.parse(ordenAjax.responseText);
 				for (var i = 0; i < orden.length; i++) {
 					var info = 	"<label><b>#58"+orden[i].idOrden+"</b></label><br><br><br>"+
 								"<label style='text-align: center;'><b>Tu pedido estará listo a las: "+localStorage.getItem('hora2')+"</b></label><br><br><br>";

@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="CSS/Fonts/stylesheet.css">
     <script type="text/javascript" src="js/funciones.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src *; font-src *; connect-src *">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src *; font-src *; connect-src *; frame-src *">
 </head>
 
 <body>
@@ -67,7 +67,7 @@
 						CCV<br>
 						<input type="number" name="cv" required  minlength="3" maxlength="3"><br>
 					</label><br><br>
-					<input type="button" name="agregar" value="Pagar" onclick="insertarOrden();" style="color: #B39700;
+					<input type="button" name="agregar" value="Pagar" onclick="window.location='direccion.html'" style="color: white;
     font-weight: bolder; font-size: 16;">
 				</form>
 			</div>

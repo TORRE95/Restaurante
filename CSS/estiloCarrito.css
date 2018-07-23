@@ -120,9 +120,8 @@ a:link, a:visited, a:hover, a:active {
     background-color: var(--header); 
     text-align: center; 
     font-weight: bolder; 
-    color: var(--texto); 
+    color: white; 
     line-height: 50px;
-    color: #FFD700;
 } 
 
 .total{
